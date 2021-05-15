@@ -2,26 +2,16 @@ package ctuet.edu.vn.ui.banhang;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Currency;
 import java.util.Vector;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.DefaultCellEditor;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -30,23 +20,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import ctuet.edu.vn.model.ChiTietDonHang;
 import ctuet.edu.vn.model.DonHang;
 import ctuet.edu.vn.model.KhachHang;
+import ctuet.edu.vn.model.Kho;
 import ctuet.edu.vn.model.SanPham;
 import ctuet.edu.vn.service.ChiTietDonHangService;
+import ctuet.edu.vn.service.ChiTietKhoService;
 import ctuet.edu.vn.service.DonHangService;
 import ctuet.edu.vn.service.KhachHangService;
 import ctuet.edu.vn.service.SanPhamService;
-import ctuet.edu.vn.ui.QL_MenuUI;
 
 
 public class TaoDonHangUI extends JPanel{
@@ -69,7 +54,6 @@ public class TaoDonHangUI extends JPanel{
 	JLabel lblTong;
 	JComboBox<String> cboMaSanPham;
 	JButton btnThem;
-	JButton btnCapNhat;
 	JTextField txtTenSanPham;
 	long tongGiaTri;
 
@@ -77,6 +61,7 @@ public class TaoDonHangUI extends JPanel{
 	DonHangService svDonHang = new DonHangService();
 	KhachHangService svKhachHang = new KhachHangService();
 	ChiTietDonHangService svChiTietDonHang = new ChiTietDonHangService();
+	ChiTietKhoService svChiTietKho = new ChiTietKhoService();
 
 	ArrayList<ChiTietDonHang> arrChiTietDonHang;
 	String maDonHang;
@@ -224,6 +209,9 @@ public class TaoDonHangUI extends JPanel{
 
 					if(soluong >= 0){
 						SanPham sp = svSanPham.TimSanPham(cboMaSanPham.getSelectedItem().toString());
+						Kho kho = new Kho();
+						kho.setMaKho("KHO0");
+						
 						int vitriSanPham = vitriSanPhamDaCo(sp.getMaSanPham());
 						//Khi sản phẩm đã có trong danh sách
 						if(vitriSanPham != -1) {
@@ -231,26 +219,30 @@ public class TaoDonHangUI extends JPanel{
 							if(soluong == 0) {
 								arrChiTietDonHang.remove(vitriSanPham);
 								JOptionPane.showMessageDialog(null, "Sản phẩm đã được loại bỏ khỏi đơn hàng!");
+							}else if(soluong > svChiTietKho.soluongSanPham(kho, sp)) {
+								JOptionPane.showMessageDialog(null, "Số lượng sản phẩm trên kệ không đủ!");
 							}else {
-								ChiTietDonHang chitietDonHang = new ChiTietDonHang();
-								chitietDonHang.setMaDonHang(svDonHang.demSoDonHang() + 1 + "");
-								chitietDonHang.setMaSanPham(sp.getMaSanPham());
-								chitietDonHang.setSoluong(soluong);
-								chitietDonHang.setGiatri(sp.getGiaban() * chitietDonHang.getSoluong() );
-								chinhsuaArrayChiTietDonHang(vitriSanPham, chitietDonHang);	
-							}	
+									ChiTietDonHang chitietDonHang = new ChiTietDonHang();
+									chitietDonHang.setMaDonHang(svDonHang.demSoDonHang() + 1 + "");
+									chitietDonHang.setMaSanPham(sp.getMaSanPham());
+									chitietDonHang.setSoluong(soluong);
+									chitietDonHang.setGiatri(sp.getGiaban() * chitietDonHang.getSoluong() );
+									chinhsuaArrayChiTietDonHang(vitriSanPham, chitietDonHang);	
+							}
 						}else {
 							//Khi số lượng mới khác 0 và sản phẩm chưa tồn tại
 							if(soluong != 0) {
-
-								//Tạo một chi tiết mới
-								ChiTietDonHang chitietDonHang = new ChiTietDonHang();
-								chitietDonHang.setMaDonHang(svDonHang.demSoDonHang() + 1 + "");
-								chitietDonHang.setMaSanPham(sp.getMaSanPham());
-								chitietDonHang.setSoluong(soluong);
-								chitietDonHang.setGiatri(sp.getGiaban() * chitietDonHang.getSoluong() );
-								arrChiTietDonHang.add(chitietDonHang);
-
+								if(soluong > svChiTietKho.soluongSanPham(kho, sp)) {
+									JOptionPane.showMessageDialog(null, "Số lượng sản phẩm trên kệ không đủ!");
+								}else {
+									//Tạo một chi tiết mới
+									ChiTietDonHang chitietDonHang = new ChiTietDonHang();
+									chitietDonHang.setMaDonHang(svDonHang.demSoDonHang() + 1 + "");
+									chitietDonHang.setMaSanPham(sp.getMaSanPham());
+									chitietDonHang.setSoluong(soluong);
+									chitietDonHang.setGiatri(sp.getGiaban() * chitietDonHang.getSoluong() );
+									arrChiTietDonHang.add(chitietDonHang);
+								}
 							}						
 						}
 
@@ -265,43 +257,6 @@ public class TaoDonHangUI extends JPanel{
 				
 			}
 
-		});
-		btnCapNhat.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int soluong = Integer.parseInt(txtSoLuong.getText().toString());
-					SanPham sp = svSanPham.TimSanPham(cboMaSanPham.getSelectedItem().toString());
-					int vitriSanPham = vitriSanPhamDaCo(sp.getMaSanPham());
-					if(soluong >= 0){
-						//Khi sản phẩm đã có trong danh sách
-						if(vitriSanPham != -1) {
-							//Khi số lượng mới bằng 0
-							if(soluong == 0) {
-								arrChiTietDonHang.remove(vitriSanPham);
-								JOptionPane.showMessageDialog(null, "Sản phẩm đã được loại bỏ khỏi đơn hàng!");
-							}else {
-								ChiTietDonHang chitietDonHang = new ChiTietDonHang();
-								chitietDonHang.setMaDonHang(svDonHang.demSoDonHang() + 1 + "");
-								chitietDonHang.setMaSanPham(sp.getMaSanPham());
-								chitietDonHang.setSoluong(soluong);
-								chitietDonHang.setGiatri(sp.getGiaban() * chitietDonHang.getSoluong() );
-								chinhsuaArrayChiTietDonHang(vitriSanPham, chitietDonHang);	
-							}
-						}else {
-							JOptionPane.showMessageDialog(null, "Vui long chọn sản phẩm có trong đơn hàng!");
-						}
-						//Cập nhật hiển thị
-						hienThiChiTietDonHang();
-
-					}else {
-						JOptionPane.showMessageDialog(null, "Số lượng sản phẩm phải là số nguyên dương!");
-					}
-				} catch (Exception e2) {
-					JOptionPane.showMessageDialog(null, "Dữ liệu số lượng sản phẩm không hợp lệ!\n\t\tHoặc sản phẩm chưa tồn tai trong đơn hàng.");
-				}
-			}
 		});
 	}
 	private void addControls() {
@@ -388,10 +343,8 @@ public class TaoDonHangUI extends JPanel{
 		txtSoLuong = new JTextField(8);
 		txtSoLuong.setText("1");
 		pnButtonSanPham.add(txtSoLuong);
-		btnThem = new JButton("Thêm");
+		btnThem = new JButton("Thêm SP vào đơn hàng");
 		pnButtonSanPham.add(btnThem);
-		btnCapNhat = new JButton("Cập nhật");
-		pnButtonSanPham.add(btnCapNhat);
 
 	}
 }

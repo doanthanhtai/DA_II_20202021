@@ -60,7 +60,7 @@ public class KhoService extends SQLServerConnection{
 	public boolean xoaKho(Kho kho) {
 		try {
 			//Xóa các kho không có sản phẩm và không phải KETRUNGBAY
-			String sql = "update Kho set trangthaikho = 0 where maKho = ? and maKho != 'KETRUNGBAY';";
+			String sql = "update Kho set trangthaikho = 0 where maKho = ? and maKho != 'KHO0';";
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, kho.getMaKho());
 			preparedStatement.execute();

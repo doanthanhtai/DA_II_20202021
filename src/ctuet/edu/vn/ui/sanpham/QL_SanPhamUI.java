@@ -2,7 +2,6 @@ package ctuet.edu.vn.ui.sanpham;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,8 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -29,12 +26,18 @@ import ctuet.edu.vn.service.SanPhamService;
 
 public class QL_SanPhamUI extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	String username;
 
 	DefaultTableModel dtmDanhSachSanPham;
 	JButton btnThem;
 	JButton btnLuu;
 	JButton btnXoa;
+	JButton btnCapNhat;
 	JButton btnChonAnh;
 	JTable tblDanhSachSanPham;
 
@@ -180,6 +183,13 @@ public class QL_SanPhamUI extends JPanel{
 				txtAnhSanPham.setText(tblDanhSachSanPham.getValueAt(tblDanhSachSanPham.getSelectedRow(), 7).toString());
 			}
 		});
+		btnCapNhat.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hienDanhSachSanPham();
+			}
+		});
 	}
 
 	private void hienDanhSachSanPham() {
@@ -192,7 +202,7 @@ public class QL_SanPhamUI extends JPanel{
 			vec.add(sanpham.getMauSac());
 			vec.add(sanpham.getKichthuoc());
 			vec.add(sanpham.getGiaban());
-			vec.add("Tổng tồn");
+			vec.add(svSanPham.tongton(sanpham));
 			vec.add(sanpham.getHinhanh());
 			dtmDanhSachSanPham.addRow(vec);
 
@@ -285,9 +295,11 @@ public class QL_SanPhamUI extends JPanel{
 		btnThem = new JButton("Thêm");
 		btnLuu = new JButton("Lưu");
 		btnXoa = new JButton("Xóa");
+		btnCapNhat = new JButton("Cập Nhật");
 		pnButton.add(btnThem);
 		pnButton.add(btnLuu);
-		pnButton.add(btnXoa);		
+		pnButton.add(btnXoa);	
+		pnButton.add(btnCapNhat);
 	}
 
 }

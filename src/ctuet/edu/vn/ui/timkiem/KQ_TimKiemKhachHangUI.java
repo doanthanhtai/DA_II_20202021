@@ -28,7 +28,7 @@ public class KQ_TimKiemKhachHangUI extends JFrame{
 	private JTextField txtSDT;
 	private DefaultTableModel dtmDanhSachDonHang;
 	
-	public KQ_TimKiemKhachHangUI(String title,KhachHang kh,ArrayList<Vector> arrDanhSachDonHang) {
+	public KQ_TimKiemKhachHangUI(String title,KhachHang kh,@SuppressWarnings("rawtypes") ArrayList<Vector> arrDanhSachDonHang) {
 		super(title);
 		addControls(kh,arrDanhSachDonHang);
 		showWindow();
@@ -40,7 +40,7 @@ public class KQ_TimKiemKhachHangUI extends JFrame{
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
-	private void addControls(KhachHang kh,ArrayList<Vector> arrDanhSachDonHang) {
+	private void addControls(KhachHang kh,@SuppressWarnings("rawtypes") ArrayList<Vector> arrDanhSachDonHang) {
 		/*---------------------------------------------------------*/
 		Container con = getContentPane();
 		JPanel pnMain = new JPanel();
@@ -86,10 +86,10 @@ public class KQ_TimKiemKhachHangUI extends JFrame{
 		addData(kh,arrDanhSachDonHang);
 		
 	}
-	private void addData(KhachHang kh,ArrayList<Vector> arrDanhSachDonHang) {
+	private void addData(KhachHang kh,@SuppressWarnings("rawtypes") ArrayList<Vector> arrDanhSachDonHang) {
 		txtTenKhachHang.setText(kh.getTenKhachHang());
 		txtSDT.setText(kh.getSodienthoai());
-		for(Vector vec : arrDanhSachDonHang) {
+		for(@SuppressWarnings("rawtypes") Vector vec : arrDanhSachDonHang) {
 			dtmDanhSachDonHang.addRow(vec);
 		}
 	}

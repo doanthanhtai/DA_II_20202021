@@ -2,18 +2,11 @@ package ctuet.edu.vn.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ctuet.edu.vn.ui.banhang.QL_BanHangUI;
 import ctuet.edu.vn.ui.khachhang.QL_KhachHangUI;
@@ -32,6 +25,7 @@ public class QL_MenuUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	public String username;
 	JTabbedPane tabChucNang;
+	//JButton btnRefresh;
 	public QL_MenuUI(String title,String username){
 		super(title);
 		this.username = username;
@@ -40,8 +34,8 @@ public class QL_MenuUI extends JFrame{
 		showWindow();
 	}
 
-	private void addControls() {
-		
+	public void addControls() {
+
 		//Tạo đối tượng		
 		Container con = getContentPane();
 		JPanel pnMain = new JPanel();
@@ -55,13 +49,13 @@ public class QL_MenuUI extends JFrame{
 		QL_ThongKeUI pnThongKe = new QL_ThongKeUI();
 		QL_KhachHangUI pnKhachHang = new QL_KhachHangUI();
 		tabChucNang = new JTabbedPane();
-		
+
 		//Tùy chỉnh đối tượng
 		pnMain.setLayout(new BorderLayout());
 		pnContent.setLayout(new BorderLayout());
 		tabChucNang.setTabPlacement(JTabbedPane.LEFT);
 
-		
+
 		//Thêm đối tượng
 		tabChucNang.addTab("  Bán hàng",new ImageIcon("image/sell_64px.png"),pnBanHang);
 		tabChucNang.addTab("  Sản phẩm",new ImageIcon("image/product_64px.png"),pnSanPham);
@@ -70,8 +64,8 @@ public class QL_MenuUI extends JFrame{
 		tabChucNang.addTab(" Nhân viên",new ImageIcon("image/staff_64px.png"),pnNhanVien);
 		tabChucNang.addTab("  Thống kê",new ImageIcon("image/statistics_64px.png"),pnThongKe);
 		tabChucNang.addTab("Khách Hàng",new ImageIcon("image/customer_64px.png"), pnKhachHang);
-		
-		
+
+
 		pnContent.add(tabChucNang);
 		pnMain.add(pnContent,BorderLayout.CENTER);
 		pnMain.add(pnTimKiem,BorderLayout.NORTH);
@@ -79,19 +73,14 @@ public class QL_MenuUI extends JFrame{
 	}
 
 	private void showWindow() {
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-		this.setSize(1080,700);
+		this.setVisible(true);		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+
 	}
 
 	private void addEvents() {
-		tabChucNang.addChangeListener(new ChangeListener() {
-			
-			@Override
-			public void stateChanged(ChangeEvent e) {
-				showWindow();
-			}
-		});
+		
+		tabChucNang.getSelectedComponent().isShowing();
 	}
 
 }

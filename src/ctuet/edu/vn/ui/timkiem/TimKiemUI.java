@@ -1,7 +1,5 @@
 package ctuet.edu.vn.ui.timkiem;
 
-import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -62,7 +60,7 @@ public class TimKiemUI extends JPanel {
 					SanPhamService sv = new SanPhamService();
 					SanPham sp = sv.TimSanPham(txtTimKiem.getText());
 					if(sp.getMaSanPham() != null) {
-						KQ_TimKiemSanPhamUI kq = new KQ_TimKiemSanPhamUI("Thông tin chi tiết sản phẩm " + sp.getMaSanPham(),sp,sv.TonKho(sp.getMaSanPham()));
+						new KQ_TimKiemSanPhamUI("Thông tin chi tiết sản phẩm " + sp.getMaSanPham(),sp,sv.TonKho(sp.getMaSanPham()));
 					}else {
 						JOptionPane.showMessageDialog(null, "Sản phẩm không tồn tại");
 					}
@@ -70,7 +68,7 @@ public class TimKiemUI extends JPanel {
 					KhachHangService sv = new KhachHangService();
 					KhachHang kh = sv.TimKhachHang(txtTimKiem.getText());
 					if(kh.getMaKhachHang() != null) {
-						KQ_TimKiemKhachHangUI kq = new KQ_TimKiemKhachHangUI("Thông tin khách hàng", kh, sv.DanhSachDonHang(kh.getSodienthoai()));
+						new KQ_TimKiemKhachHangUI("Thông tin khách hàng", kh, sv.DanhSachDonHang(kh.getSodienthoai()));
 					}else {
 						JOptionPane.showMessageDialog(null, "Khách hàng không tồn tại");
 					}

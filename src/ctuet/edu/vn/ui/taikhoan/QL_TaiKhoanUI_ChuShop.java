@@ -25,13 +25,13 @@ import ctuet.edu.vn.service.NhanVienService;
 import ctuet.edu.vn.service.TaiKhoanService;
 
 public class QL_TaiKhoanUI_ChuShop extends JPanel{
-	private String username;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	DefaultTableModel dtmDanhSachTaiKhoan;
-	JButton btnThem;
-	JButton btnLuu;
-	JButton btnXoa;
-	JButton btnDangXuat;
+	JButton btnThem,btnLuu,btnXoa,btnDangXuat;
 	JTable tblDanhSachTaiKhoan;
 	JComboBox<String> cboMaNhanVien;
 
@@ -39,8 +39,8 @@ public class QL_TaiKhoanUI_ChuShop extends JPanel{
 	TaiKhoanService svTaiKhoan = new TaiKhoanService();
 	TaiKhoan taikhoan = new TaiKhoan();
 	NhanVienService svNhanVien = new NhanVienService();
+	
 	public QL_TaiKhoanUI_ChuShop(String username) {
-		this.username = username;
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		addControls();
 		addEvents();
@@ -71,17 +71,20 @@ public class QL_TaiKhoanUI_ChuShop extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				taikhoan.setUsername(txtUsername.getText().toString().trim());
 				taikhoan.setPassword(txtPassword.getText().toString().trim());
-				taikhoan.setMaNhanVien(cboMaNhanVien.getSelectedItem().toString().trim());
 				taikhoan.setVaitro("nhanvien");
-				if(taikhoan.getUsername().equals("") || taikhoan.getPassword().equals("")) {
+				if(cboMaNhanVien.getSelectedItem() == null) {
+					JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên sử hữu tài khoản này!");
+				}else if(taikhoan.getUsername().equals("") || taikhoan.getPassword().equals("")) {
 					JOptionPane.showMessageDialog(null, "Username và password không được bỏ trống!");
 				}else if(svTaiKhoan.kiemtraTonTai(taikhoan)){
 					JOptionPane.showMessageDialog(null, "Username đã tồn tại!");
 				}else {
+					taikhoan.setMaNhanVien(cboMaNhanVien.getSelectedItem().toString().trim());
 					svTaiKhoan.themTaiKhoan(taikhoan);
 					JOptionPane.showMessageDialog(null, "Thêm tài khoản thành công!");
 					hienDanhSachTaiKhoan();
 				}
+				
 
 			}
 		});
@@ -157,7 +160,7 @@ public class QL_TaiKhoanUI_ChuShop extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Sự kiện đăng xuất chưa xử lý");
+				new DangNhapUI("Đăng nhập");
 			}
 		});
 

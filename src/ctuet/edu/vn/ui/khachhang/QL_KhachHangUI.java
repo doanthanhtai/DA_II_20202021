@@ -4,8 +4,12 @@ import javax.swing.JPanel;
 
 public class QL_KhachHangUI extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public QL_KhachHangUI() {
-		// TODO Auto-generated constructor stub
 	}
 
 }

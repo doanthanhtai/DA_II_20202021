@@ -13,7 +13,7 @@ public class QL_TaiKhoanUI extends JPanel{
 
 	public QL_TaiKhoanUI(String username) {
 		this.setLayout(new BorderLayout());
-		if(username == "admin") {
+		if(username.equals("admin")) {
 			this.add(new QL_TaiKhoanUI_ChuShop(username),BorderLayout.CENTER);
 		}else {
 			this.add(new QL_TaiKhoanUI_NhanVien(username),BorderLayout.CENTER);

@@ -31,6 +31,10 @@ import ctuet.edu.vn.service.SanPhamService;
 
 public class ChinhSuaDonHangUI extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String username;
 	JButton btnLuu;
 	JButton btnDaThanhToan;

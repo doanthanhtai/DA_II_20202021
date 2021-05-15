@@ -7,6 +7,35 @@ import java.util.ArrayList;
 import ctuet.edu.vn.model.TaiKhoan;
 
 public class TaiKhoanService extends SQLServerConnection{
+	
+	//Đổi mật khẩu
+	public void doiMatKhau(TaiKhoan taikhoan) {
+		try {
+			String sql = "update TaiKhoan set password = ? where username = ?;";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, taikhoan.getPassword());
+			preparedStatement.setString(2, taikhoan.getUsername());
+			preparedStatement.execute();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//Kiểm tra đăng nhập
+	public boolean kiemtraDangNhap(TaiKhoan taikhoan) {
+		try {
+			String sql = "select * from TaiKhoan where username = ? and password = ?;";
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, taikhoan.getUsername());
+			preparedStatement.setString(2, taikhoan.getPassword());
+			ResultSet result = preparedStatement.executeQuery();
+			if(result.next()) return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	//Kiểm tra tồn tại
 	public boolean kiemtraTonTai(TaiKhoan taikhoan) {
 		try {

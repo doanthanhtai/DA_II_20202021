@@ -1,13 +1,10 @@
 package ctuet.edu.vn.ui.kho;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -25,6 +22,10 @@ import ctuet.edu.vn.service.SanPhamService;
 
 public class NhapXuatUI extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton btnNhapKho;
 	JButton btnHuy;
 	JComboBox<String> cboMaKhoNhap;
