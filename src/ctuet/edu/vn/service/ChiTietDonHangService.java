@@ -21,6 +21,14 @@ public class ChiTietDonHangService extends SQLServerConnection{
 				preparedStatement.setInt(3, chitietdonhang.getSoluong());
 				preparedStatement.setLong(4, chitietdonhang.getGiatri());
 				preparedStatement.execute();
+				//Cập nhật số lượng cho sản phẩm trong kho KETRUNGBAY
+				sql = "UPDATE ChiTietKho set soluong = (SELECT soluong from ChiTietKho where makho = 'KHO0' and maSanPham = ?) - ? where makho = 'KHO0' and maSanPham = ?;";
+				preparedStatement = conn.prepareStatement(sql);
+				preparedStatement.setString(1, chitietdonhang.getMaSanPham());
+				preparedStatement.setInt(2, chitietdonhang.getSoluong());
+				preparedStatement.setString(3, chitietdonhang.getMaSanPham());
+				preparedStatement.execute();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -1,6 +1,5 @@
 package ctuet.edu.vn.service;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -91,6 +90,7 @@ public class DonHangService extends SQLServerConnection{
 	}
 	
 	//Lấy toàn bô đơn hàng để hiển thị lên bảng trong quản lý bán hàng
+	@SuppressWarnings("rawtypes")
 	public ArrayList<Vector> LayToanBoDonHang() {
 		ArrayList<Vector> arrDanhSachDonHang = new ArrayList<Vector>();
 		try {

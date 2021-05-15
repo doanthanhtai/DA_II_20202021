@@ -55,7 +55,7 @@ public class SanPhamService extends SQLServerConnection{
 				preparedStatement.setString(3, sanpham.getMauSac());
 				preparedStatement.setInt(4, sanpham.getKichthuoc());
 				preparedStatement.setString(5, sanpham.getNguoncungcap());
-				preparedStatement.setInt(6, sanpham.getGiaban());
+				preparedStatement.setFloat(6, sanpham.getGiaban());
 				preparedStatement.setString(7, sanpham.getHinhanh());
 				preparedStatement.execute();
 			}
@@ -124,7 +124,24 @@ public class SanPhamService extends SQLServerConnection{
 		}
 		return sp;
 	}
+	
+	//Tổng tồn sản phẩm
+	public long tongton(SanPham sanpham) {
+		try {
+			String sql = "select SUM(soluong) from ChiTietKho where maSanPham = ?";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1, sanpham.getMaSanPham());
+			ResultSet result = preStatement.executeQuery();
+			if(result.next()) {
+				return result.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 	//Tình trạng tồn kho của sản phẩm
+	@SuppressWarnings("rawtypes")
 	public ArrayList<Vector> TonKho(String maSP){
 		ArrayList<Vector> arrTonKho = new ArrayList<Vector>();
 		try {

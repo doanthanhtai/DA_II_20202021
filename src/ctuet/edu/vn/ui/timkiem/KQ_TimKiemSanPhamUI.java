@@ -33,7 +33,7 @@ public class KQ_TimKiemSanPhamUI extends JFrame {
 	private JButton btnHinhAnh;
 	private DefaultTableModel dtmTonKho;
 
-	public KQ_TimKiemSanPhamUI(String title,SanPham sp,ArrayList<Vector> arrTonKho) {
+	public KQ_TimKiemSanPhamUI(String title,SanPham sp,@SuppressWarnings("rawtypes") ArrayList<Vector> arrTonKho) {
 		super(title);
 		addControls(sp,arrTonKho);
 		showWindow();
@@ -44,7 +44,7 @@ public class KQ_TimKiemSanPhamUI extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-	private void addControls(SanPham sp,ArrayList<Vector> arrTonKho) {
+	private void addControls(SanPham sp,@SuppressWarnings("rawtypes") ArrayList<Vector> arrTonKho) {
 		
 		/*---------------------------------------------------------*/
 		Container con = getContentPane();
@@ -132,7 +132,7 @@ public class KQ_TimKiemSanPhamUI extends JFrame {
 		addData(sp,arrTonKho);
 	}
 
-	private void addData(SanPham sp,ArrayList<Vector> arrTonKho) {
+	private void addData(SanPham sp,@SuppressWarnings("rawtypes") ArrayList<Vector> arrTonKho) {
 		txtTenSanPham.setText(sp.getTenSanPham());
 		txtMauSac.setText(sp.getMauSac());
 		txtKichThuoc.setText(sp.getKichthuoc() + "");
@@ -146,7 +146,7 @@ public class KQ_TimKiemSanPhamUI extends JFrame {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		for(Vector vec : arrTonKho) {
+		for(@SuppressWarnings("rawtypes") Vector vec : arrTonKho) {
 			dtmTonKho.addRow(vec);
 		}
 	}	

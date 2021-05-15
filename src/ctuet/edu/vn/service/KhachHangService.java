@@ -74,6 +74,7 @@ public class KhachHangService extends SQLServerConnection {
 	}
 
 	//Lấy thông tin đơn hàng của khách hàng
+	@SuppressWarnings("rawtypes")
 	public ArrayList<Vector> DanhSachDonHang(String sodienthoai){
 
 		ArrayList<Vector> arrDanhSachDonHang = new ArrayList<Vector>();		

@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import ctuet.edu.vn.model.Kho;
-import ctuet.edu.vn.model.SanPham;
 import ctuet.edu.vn.service.ChiTietKhoService;
 import ctuet.edu.vn.service.DonHangService;
 import ctuet.edu.vn.service.KhoService;
@@ -28,6 +27,11 @@ import ctuet.edu.vn.service.SanPhamService;
 public class QL_KhoUI extends JPanel{
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	String username;
 
 	DefaultTableModel dtmDanhSachKho;
@@ -35,6 +39,7 @@ public class QL_KhoUI extends JPanel{
 	JButton btnLuu;
 	JButton btnXoa;
 	JButton btnNhapXuat;
+	JButton btnCapNhat;
 	JTable tblDanhSachKho;
 
 	JTextField txtTenKho,txtDiaChi;
@@ -72,6 +77,13 @@ public class QL_KhoUI extends JPanel{
 
 
 	private void addEvents() {
+		btnCapNhat.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				hienDanhSachKho();
+			}
+		});
 		btnNhapXuat.addActionListener(new ActionListener() {
 			
 			@Override
@@ -235,10 +247,12 @@ public class QL_KhoUI extends JPanel{
 		btnLuu = new JButton("Lưu");
 		btnXoa = new JButton("Xóa");
 		btnNhapXuat = new JButton("Nhập Xuất");
+		btnCapNhat = new JButton("Cập Nhật");
 		pnButton.add(btnThem);
 		pnButton.add(btnLuu);
 		pnButton.add(btnXoa);		
 		pnButton.add(btnNhapXuat);
+		pnButton.add(btnCapNhat);
 	}
 
 }

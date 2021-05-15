@@ -84,6 +84,7 @@ public class QL_BanHangUI extends JPanel{
 	
 	}
 
+	@SuppressWarnings("unchecked")
 	private void hienDanhSachDonHang() {
 		DonHangService sv = new DonHangService();
 		for(Vector<Object> vec : sv.LayToanBoDonHang()) {

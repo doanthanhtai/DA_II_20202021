@@ -29,6 +29,10 @@ import ctuet.edu.vn.service.SanPhamService;
 
 public class InDonHangUI extends JFrame{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String username;
 	JButton btnHuy;
 	JButton btnIn;
