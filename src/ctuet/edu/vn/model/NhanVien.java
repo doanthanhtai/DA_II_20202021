@@ -1,17 +1,16 @@
 package ctuet.edu.vn.model;
 
-import java.sql.Date;
 
 public class NhanVien {
 	private String maNhanVien;
 	private String tenNhanVien;
 	private String sodienthoai;
-	private Date ngaysinh;
+	private int ngaysinh;
 	private String cmnd;
 	private String diachi;
 	private String vitri;
-	private long mucluong;
-	private Date ngaynhanviec;
+	private float mucluong;
+	private String ngaynhanviec;
 	private String hinhanh;
 	public String getMaNhanVien() {
 		return maNhanVien;
@@ -25,8 +24,8 @@ public class NhanVien {
 	public NhanVien() {
 		super();
 	}
-	public NhanVien(String maNhanVien, String tenNhanVien, String sodienthoai, Date ngaysinh, String cmnd,
-			String diachi, String vitri, long mucluong, Date ngaynhanviec, String hinhanh) {
+	public NhanVien(String maNhanVien, String tenNhanVien, String sodienthoai, Integer ngaysinh, String cmnd,
+			String diachi, String vitri, long mucluong, String ngaynhanviec, String hinhanh) {
 		super();
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;
@@ -48,10 +47,10 @@ public class NhanVien {
 	public void setSodienthoai(String sodienthoai) {
 		this.sodienthoai = sodienthoai;
 	}
-	public Date getNgaysinh() {
+	public int getNgaysinh() {
 		return ngaysinh;
 	}
-	public void setNgaysinh(Date ngaysinh) {
+	public void setNgaysinh(Integer ngaysinh) {
 		this.ngaysinh = ngaysinh;
 	}
 	public String getCmnd() {
@@ -72,16 +71,16 @@ public class NhanVien {
 	public void setVitri(String vitri) {
 		this.vitri = vitri;
 	}
-	public long getMucluong() {
+	public float getMucluong() {
 		return mucluong;
 	}
-	public void setMucluong(long mucluong) {
+	public void setMucluong(Float mucluong) {
 		this.mucluong = mucluong;
 	}
-	public Date getNgaynhanviec() {
+	public String getNgaynhanviec() {
 		return ngaynhanviec;
 	}
-	public void setNgaynhanviec(Date ngaynhanviec) {
+	public void setNgaynhanviec(String ngaynhanviec) {
 		this.ngaynhanviec = ngaynhanviec;
 	}
 	public String getHinhanh() {

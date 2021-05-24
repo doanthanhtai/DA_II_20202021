@@ -10,7 +10,7 @@ public class SQLServerConnection {
 	public SQLServerConnection() {
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-			String connecttionURL = "jdbc:sqlserver://" + "DESKTOP-A6HPVHS" + ":1433;databaseName = dbQLShopTT;user= sa;password = 123456 ;integratedSercurity = true;";
+			String connecttionURL = "jdbc:sqlserver://" + "LAPTOP-FQ1PEG79" + ":1433;databaseName = dbQLShopTT;user= sa;password = 123456 ;integratedSercurity = true;";
 			conn = DriverManager.getConnection(connecttionURL);
 		}catch(Exception ex){
 			ex.printStackTrace();
