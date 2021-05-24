@@ -222,12 +222,12 @@ CREATE TABLE [dbo].[NhanVien](
 	[maNhanVien] [nchar](10) NULL,
 	[tenNhanVien] [nvarchar](50) NULL,
 	[sodienthoai] [nchar](10) NULL,
-	[ngaysinh] [date] NULL,
+	[ngaysinh] [int] NULL,
 	[cmnd] [nvarchar](12) NULL,
 	[diachi] [nvarchar](50) NULL,
 	[vitri] [nvarchar](50) NULL,
 	[mucluong] [float] NULL,
-	[ngaynhanviec] [date] NULL,
+	[ngaynhanviec] [nchar](10) NULL,
 	[hinhanh] [nvarchar](50) NULL
 ) ON [PRIMARY]
 GO
