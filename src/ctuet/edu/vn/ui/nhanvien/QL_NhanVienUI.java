@@ -96,8 +96,11 @@ public class QL_NhanVienUI extends JPanel{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				NhanVien nhanvien = new NhanVien();
+				
 				QL_NhanVienUI.this.removeAll();
-				QL_NhanVienUI.this.add(new ThemNhanVienUI());
+				QL_NhanVienUI.this.add(new ThemNhanVienUI(nhanvien));
 				QL_NhanVienUI.this.updateUI();
 			}
 		});

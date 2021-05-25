@@ -29,7 +29,7 @@ private static final long serialVersionUID = 1L;
 	JTextField txtHoTen,txtCMND,txtNamSinh,txtSoDienThoai,txtNgayNhanViec,txtMucLuong,txtViTri,txtDiaChi;
 	
 	NhanVienService svNhanVien = new NhanVienService();
-	public ThemNhanVienUI() {
+	public ThemNhanVienUI(NhanVien nhanvien) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		addControls();
 		addEvents();
