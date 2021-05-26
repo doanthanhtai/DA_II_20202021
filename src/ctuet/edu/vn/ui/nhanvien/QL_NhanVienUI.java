@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -14,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 import ctuet.edu.vn.model.NhanVien;
 import ctuet.edu.vn.service.NhanVienService;
 public class QL_NhanVienUI extends JPanel{
@@ -111,10 +109,9 @@ public class QL_NhanVienUI extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				NhanVien nhanvien = new NhanVien();
 				if(tblDanhSachNhanVien.getSelectedRow() < 0) {
-					JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên để xóa!");
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn nhân viên để xóa!");
 				}else if(JOptionPane.showConfirmDialog(null,"Bạn có chắc muốn xóa Nhân viên này!","Xác nhận",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					String cmnd  = tblDanhSachNhanVien.getValueAt(tblDanhSachNhanVien.getSelectedRow(), 0).toString().trim();
-					//JOptionPane.showMessageDialog(null, cmnd);
 					nhanvien.setCmnd(cmnd);
 					svNhanVien.xoaNhanVien(nhanvien);
 					JOptionPane.showMessageDialog(null, "Xóa thành công!");
@@ -129,22 +126,20 @@ public class QL_NhanVienUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				/*
-				 * Lấy dòng được chọn trong bảng
-				 * Tạo một nhan vien đổ vô cho nó
-				 * Sửa cái hàm khởi tạo QL_NhanVienUI.this.add(new ChinhSuaNhanVienUI()); có nhận một thằng nhân viên
-				 * Set dữ liệu cho mấy Jtextfile bên giao diện chỉnh sửa
-				 * 
-				 * */
 				NhanVien nhanvien = new NhanVien();
-				
-				//Lấy dữ liệu dòng trong bảng như chổ xóa há....nếu không thì lấy cái cmnd thôi...qua kia truy vấn ra từ csdl rồi set cho mấy cái jtextfile
-				QL_NhanVienUI.this.removeAll();
-				QL_NhanVienUI.this.add(new ChinhSuaNhanVienUI(nhanvien));
-				QL_NhanVienUI.this.updateUI();
-			}
-		});
+				if(tblDanhSachNhanVien.getSelectedRow() < 0) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn nhân viên để chỉnh sửa !");
+				}else {
+					String cmnd  = tblDanhSachNhanVien.getValueAt(tblDanhSachNhanVien.getSelectedRow(), 0).toString().trim();
+					nhanvien = svNhanVien.layThongTinNhanVien(cmnd);
 
+					QL_NhanVienUI.this.removeAll();
+					QL_NhanVienUI.this.add(new ChinhSuaNhanVienUI(nhanvien));
+					QL_NhanVienUI.this.updateUI();
+				}
+			}
+
+		});
 	}
 
 
