@@ -7,22 +7,7 @@ import java.util.ArrayList;
 import ctuet.edu.vn.model.Kho;
 
 public class KhoService extends SQLServerConnection{
-	
-//	//Kho hàng có tên Kệ trung bày được khởi tạo mặc định
-//	public KhoService() {
-//		try {
-//			String sql = "insert into Kho values(?,?,?,?);";
-//			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-//			preparedStatement.setString(1, "KHO_0");
-//			preparedStatement.setString(2, "Kệ trưng bày");
-//			preparedStatement.setString(3, "Kệ trưng bày tại cửa hàng");
-//			preparedStatement.setInt(4, 1);
-//			preparedStatement.execute();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-	
+
 	//Thêm kho mới
 	public void themKhoMoi(Kho kho) {
 		try {

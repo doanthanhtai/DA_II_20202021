@@ -1,14 +1,17 @@
 package ctuet.edu.vn.ui.khachhang;
 
 import java.awt.BorderLayout;
-
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import ctuet.edu.vn.model.KhachHang;
+import ctuet.edu.vn.service.KhachHangService;
+
 
 public class QL_KhachHangUI extends JPanel{
 
@@ -19,6 +22,7 @@ public class QL_KhachHangUI extends JPanel{
 
 	DefaultTableModel dtmDanhSachKhachHang;
 	JTable tblDanhSachKhachHang;
+	KhachHangService svKhachHang = new KhachHangService();
 	public QL_KhachHangUI() {
 		// TODO Auto-generated constructor stub
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -48,7 +52,21 @@ public class QL_KhachHangUI extends JPanel{
 	
 	private void addEvents() {
 		// TODO Auto-generated method stub
+		hienDanhSachKhachHang();
 		
+		
+		
+	}
+	public void hienDanhSachKhachHang() {
+		dtmDanhSachKhachHang.setRowCount(0);
+		for(KhachHang khachhang : svKhachHang.layToanBoKhachHang()) {
+			Vector<Object> vec = new Vector<Object>();
+			vec.add(khachhang.getTenKhachHang());
+			vec.add(khachhang.getSodienthoai());
+
+			dtmDanhSachKhachHang.addRow(vec);
+
+		}
 	}
 
 
