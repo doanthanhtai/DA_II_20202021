@@ -19,7 +19,9 @@ public class QL_NhanVienUI extends JPanel{
 
 
 	private static final long serialVersionUID = 1L;
-
+	
+	import javax.swing.text.MaskFormatter;
+	
 	DefaultTableModel dtmDanhSachNhanVien;
 	JButton btnThem;
 	JButton btnChinhSua;
