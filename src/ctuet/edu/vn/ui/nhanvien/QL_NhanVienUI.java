@@ -15,12 +15,13 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import ctuet.edu.vn.model.NhanVien;
 import ctuet.edu.vn.service.NhanVienService;
+import javax.swing.text.MaskFormatter;
+
+
 public class QL_NhanVienUI extends JPanel{
 
 
 	private static final long serialVersionUID = 1L;
-	
-	import javax.swing.text.MaskFormatter;
 	
 	DefaultTableModel dtmDanhSachNhanVien;
 	JButton btnThem;
