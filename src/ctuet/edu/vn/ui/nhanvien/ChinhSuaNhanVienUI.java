@@ -14,11 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+
 import ctuet.edu.vn.model.NhanVien;
 import ctuet.edu.vn.service.NhanVienService;
 
 
 public class ChinhSuaNhanVienUI extends JPanel {
+	
 private static final long serialVersionUID = 1L;
 	
 	JButton btnCapNhat;
@@ -29,31 +31,14 @@ private static final long serialVersionUID = 1L;
 	JTable tblDanhSachNhanVien;
 	DefaultTableModel dtmDanhSachNhanVien;
 	NhanVienService svNhanVien = new NhanVienService();
-	NhanVien nhanvien = new NhanVien();
-	
 	public ChinhSuaNhanVienUI(NhanVien nhanvien) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.nhanvien = nhanvien;
 		addControls();
-		hienthiThongTinNhanVien(nhanvien);
 		addEvents();
 	}
 	
-	private void hienthiThongTinNhanVien(NhanVien nhanvien) {
-		txtHoTen.setText(nhanvien.getTenNhanVien());
-		txtCMND.setText(nhanvien.getCmnd());
-		txtNamSinh.setText(nhanvien.getNgaysinh() + "");
-		txtSoDienThoai.setText(nhanvien.getSodienthoai());
-		txtNgayNhanViec.setText(nhanvien.getNgaynhanviec());
-		txtMucLuong.setText(nhanvien.getMucluong() + "");
-		txtViTri.setText(nhanvien.getVitri());
-		txtDiaChi.setText(nhanvien.getDiachi());
-		
-	}
-	
 	private void addControls()
-	{
-		/*----------------------Top----------------------------*/
+	{/*----------------------Top----------------------------*/
 		JPanel pnTop = new JPanel();
 		pnTop.setLayout(new BoxLayout(pnTop,BoxLayout.X_AXIS));
 		this.add(pnTop);
@@ -168,46 +153,17 @@ private static final long serialVersionUID = 1L;
 		});
 		// Cập nhật thông tin nhân viên
 		btnCapNhat.addActionListener(new ActionListener() {
+			
 			@Override
-			public void actionPerformed(ActionEvent e) {	
-				
-				nhanvien.setTenNhanVien(txtHoTen.getText());
-				nhanvien.setCmnd(txtCMND.getText().toString().trim());
-				nhanvien.setNgaysinh(Integer.parseInt(txtNamSinh.getText()));
-				nhanvien.setSodienthoai(txtSoDienThoai.getText().toString().trim());
-				nhanvien.setNgaynhanviec(txtNgayNhanViec.getText());
-				nhanvien.setMucluong(Float.parseFloat(txtMucLuong.getText()));
-				nhanvien.setVitri(txtViTri.getText());
-				nhanvien.setDiachi(txtDiaChi.getText());
-
-				if(nhanvien.getTenNhanVien().equals("")) {
-					JOptionPane.showMessageDialog(null, "Tên nhân viên không được bỏ trống!");
-				}else if(nhanvien.getCmnd().equals("")) {
-					JOptionPane.showMessageDialog(null, "Chứng minh nhân dân nhân viên không được bỏ trống!");
-				}else if((nhanvien.getNgaysinh() + "").equals("")) {
-					JOptionPane.showMessageDialog(null, "Ngày sinh nhân viên không được bỏ trống!");
-				}else if(nhanvien.getSodienthoai().equals("")) {
-					JOptionPane.showMessageDialog(null, "Số điện thoại nhân viên không được bỏ trống!");
-				}else if(nhanvien.getNgaynhanviec().equals("")) {
-					JOptionPane.showMessageDialog(null, "Ngày nhận việc nhân viên không được bỏ trống!");
-				}else if((nhanvien.getMucluong() + "").equals("")) {
-					JOptionPane.showMessageDialog(null, "Mức lương nhân viên không được bỏ trống!");
-				}else if(nhanvien.getVitri().equals("")) {
-					JOptionPane.showMessageDialog(null, "Vị trí nhân viên không được bỏ trống!");
-				}else if(nhanvien.getDiachi().equals("")) {
-					JOptionPane.showMessageDialog(null, "Địa chỉ nhân viên không được bỏ trống!");
-				}else {
-					svNhanVien.chinhsuaThongTinNhanVien(nhanvien);
-					JOptionPane.showMessageDialog(null, "Chỉnh sửa nhân viên thành công!");
-					ChinhSuaNhanVienUI.this.removeAll();
-					ChinhSuaNhanVienUI.this.add(new QL_NhanVienUI());
-					ChinhSuaNhanVienUI.this.updateUI();
-				}
-
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Chỉnh sửa nhân viên thành công!");
+				ChinhSuaNhanVienUI.this.removeAll();
+				ChinhSuaNhanVienUI.this.add(new QL_NhanVienUI());
+				ChinhSuaNhanVienUI.this.updateUI();
+				hienDanhSachNhanVien();
 			}
 		});
 	}
-
 	
 	public void hienDanhSachNhanVien() {
 		dtmDanhSachNhanVien.setRowCount(0);

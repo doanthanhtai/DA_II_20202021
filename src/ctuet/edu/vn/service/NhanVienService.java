@@ -1,36 +1,13 @@
 package ctuet.edu.vn.service;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
 import ctuet.edu.vn.model.NhanVien;
+
 public class NhanVienService extends SQLServerConnection{
 	
-	
-	//Lấy nhân viên
-	public NhanVien layThongTinNhanVien(String cmnd) {
-		NhanVien nhanvien = new NhanVien();
-		try {
-			String sql = "select * from NhanVien where cmnd = ?;";
-			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, cmnd);
-			ResultSet result = preparedStatement.executeQuery();
-			if(result.next()) {
-				nhanvien.setMaNhanVien(result.getString(1));
-				nhanvien.setTenNhanVien(result.getString(2));
-				nhanvien.setSodienthoai(result.getString(3));
-				nhanvien.setNgaysinh(result.getInt(4));
-				nhanvien.setCmnd(result.getString(5));
-				nhanvien.setDiachi(result.getString(6));
-				nhanvien.setVitri(result.getString(7));
-				nhanvien.setMucluong(result.getFloat(8));
-				nhanvien.setNgaynhanviec(result.getString(9));
-				nhanvien.setHinhanh(result.getString(10));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return nhanvien;
-	}
 	//Lấy toàn bộ nhân viên
 	public ArrayList<NhanVien> layToanBoNhanVien(){
 		ArrayList<NhanVien> arrNhanVien = new ArrayList<NhanVien>();
@@ -43,13 +20,12 @@ public class NhanVienService extends SQLServerConnection{
 				nhanvien.setMaNhanVien(result.getString(1));
 				nhanvien.setTenNhanVien(result.getString(2));
 				nhanvien.setSodienthoai(result.getString(3));
-				nhanvien.setNgaysinh(result.getInt(4));
+				nhanvien.setNgaysinh(result.getString(4));
 				nhanvien.setCmnd(result.getString(5));
 				nhanvien.setDiachi(result.getString(6));
 				nhanvien.setVitri(result.getString(7));
-				nhanvien.setMucluong(result.getFloat(8));
+				nhanvien.setMucluong(result.getString(8));
 				nhanvien.setNgaynhanviec(result.getString(9));
-				nhanvien.setHinhanh(result.getString(10));
 				arrNhanVien.add(nhanvien);
 			}
 		} catch (Exception e) {
@@ -76,24 +52,22 @@ public class NhanVienService extends SQLServerConnection{
 		
 		public void themNhanVien(NhanVien nhanvien) {
 			try {
-				String sql = "insert into NhanVien values(?,?,?,?,?,?,?,?,?,?);";
+				String sql = "insert into NhanVien values(?,?,?,?,?,?,?,?,?);";
 				PreparedStatement preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setString(1, nhanvien.getMaNhanVien());
 				preparedStatement.setString(2, nhanvien.getTenNhanVien());
 				preparedStatement.setString(3, nhanvien.getSodienthoai());
-				preparedStatement.setInt(4,nhanvien.getNgaysinh());
+				preparedStatement.setString(4, nhanvien.getNgaysinh());
 				preparedStatement.setString(5, nhanvien.getCmnd());
 				preparedStatement.setString(6, nhanvien.getDiachi());
 				preparedStatement.setString(7, nhanvien.getVitri());
-				preparedStatement.setFloat(8, nhanvien.getMucluong());
+				preparedStatement.setString(8, nhanvien.getMucluong());
 				preparedStatement.setString(9, nhanvien.getNgaynhanviec());
-				preparedStatement.setString(10, nhanvien.getHinhanh());
 				preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
 		//Đánh dấu nhân viên được xóa bằng giá trị 'off' cho vitri nhân viên
 		public void xoaNhanVien(NhanVien nhanvien) {
 			try {
@@ -112,11 +86,11 @@ public class NhanVienService extends SQLServerConnection{
 				
 				preparedStatement.setString(1, nhanvien.getTenNhanVien());
 				preparedStatement.setString(2, nhanvien.getSodienthoai());
-				preparedStatement.setInt(3,nhanvien.getNgaysinh());
+				preparedStatement.setString(3,nhanvien.getNgaysinh());
 				preparedStatement.setString(4, nhanvien.getCmnd());
 				preparedStatement.setString(5, nhanvien.getDiachi());
 				preparedStatement.setString(6, nhanvien.getVitri());
-				preparedStatement.setFloat(7, nhanvien.getMucluong());
+				preparedStatement.setString(7, nhanvien.getMucluong());
 				preparedStatement.setString(8, nhanvien.getNgaynhanviec());
 				preparedStatement.setString(9, nhanvien.getMaNhanVien());
 				preparedStatement.execute();
@@ -125,7 +99,4 @@ public class NhanVienService extends SQLServerConnection{
 				e.printStackTrace();
 			}
 		}
-		
 }
-
-

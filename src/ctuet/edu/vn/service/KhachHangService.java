@@ -127,23 +127,4 @@ public class KhachHangService extends SQLServerConnection {
 		}
 		return kh;
 	}
-	//Lấy toàn bộ khách hàng
-		public ArrayList<KhachHang> layToanBoKhachHang(){
-			ArrayList<KhachHang> arrKhachHang = new ArrayList<KhachHang>();
-			try {
-				String sql = "select * from KhachHang where sodienthoai != '';";
-				PreparedStatement preparedStatement = conn.prepareStatement(sql);
-				ResultSet result = preparedStatement.executeQuery();
-				while(result.next()) {
-					KhachHang khachhang = new KhachHang();
-					khachhang.setMaKhachHang(result.getString(1));
-					khachhang.setTenKhachHang(result.getString(2));
-					khachhang.setSodienthoai(result.getString(3));
-					arrKhachHang.add(khachhang);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return arrKhachHang;
-		}
 }
