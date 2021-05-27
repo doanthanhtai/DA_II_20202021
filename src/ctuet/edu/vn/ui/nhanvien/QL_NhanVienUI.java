@@ -132,17 +132,22 @@ public class QL_NhanVienUI extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				NhanVien nhanvien = new NhanVien();
 				if(tblDanhSachNhanVien.getSelectedRow() < 0) {
-					JOptionPane.showMessageDialog(null, "Bạn chưa chọn nhân viên để chỉnh sửa !");
-				}else {
-					String cmnd  = tblDanhSachNhanVien.getValueAt(tblDanhSachNhanVien.getSelectedRow(), 0).toString().trim();
-					nhanvien = svNhanVien.layThongTinNhanVien(cmnd);
-
-					QL_NhanVienUI.this.removeAll();
-					QL_NhanVienUI.this.add(new ChinhSuaNhanVienUI(nhanvien));
-					QL_NhanVienUI.this.updateUI();
-				}
+					JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên để chỉnh sửa!");
+				}else if(JOptionPane.showConfirmDialog(null,"Bạn có chắc muốn cập nhật thông tin Nhân viên này!","Xác nhận",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					
+					nhanvien.setTenNhanVien(txtHoTen.getText());
+					nhanvien.setCmnd(txtCMND.getText().toString().trim());
+					nhanvien.setNgaysinh(txtNamSinh.getText());
+					nhanvien.setSodienthoai(txtSoDienThoai.getText().toString().trim());
+					nhanvien.setNgaynhanviec(txtNgayNhanViec.getText());
+					nhanvien.setMucluong(txtMucLuong.getText());
+					nhanvien.setVitri(txtViTri.getText());
+					nhanvien.setDiachi(txtDiaChi.getText());
+					
+					svNhanVien.chinhsuaThongTinNhanVien(nhanvien);
+					JOptionPane.showMessageDialog(null, "Chỉnh sửa thành công!");
+					hienDanhSachNhanVien();
 			}
 
 		});
