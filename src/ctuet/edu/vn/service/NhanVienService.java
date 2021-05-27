@@ -20,13 +20,12 @@ public class NhanVienService extends SQLServerConnection{
 				nhanvien.setMaNhanVien(result.getString(1));
 				nhanvien.setTenNhanVien(result.getString(2));
 				nhanvien.setSodienthoai(result.getString(3));
-				nhanvien.setNgaysinh(result.getInt(4));
+				nhanvien.setNgaysinh(result.getString(4));
 				nhanvien.setCmnd(result.getString(5));
 				nhanvien.setDiachi(result.getString(6));
 				nhanvien.setVitri(result.getString(7));
-				nhanvien.setMucluong(result.getFloat(8));
+				nhanvien.setMucluong(result.getString(8));
 				nhanvien.setNgaynhanviec(result.getString(9));
-				nhanvien.setHinhanh(result.getString(10));
 				arrNhanVien.add(nhanvien);
 			}
 		} catch (Exception e) {
@@ -53,18 +52,17 @@ public class NhanVienService extends SQLServerConnection{
 		
 		public void themNhanVien(NhanVien nhanvien) {
 			try {
-				String sql = "insert into NhanVien values(?,?,?,?,?,?,?,?,?,?);";
+				String sql = "insert into NhanVien values(?,?,?,?,?,?,?,?,?);";
 				PreparedStatement preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setString(1, nhanvien.getMaNhanVien());
 				preparedStatement.setString(2, nhanvien.getTenNhanVien());
 				preparedStatement.setString(3, nhanvien.getSodienthoai());
-				preparedStatement.setInt(4,nhanvien.getNgaysinh());
+				preparedStatement.setString(4, nhanvien.getNgaysinh());
 				preparedStatement.setString(5, nhanvien.getCmnd());
 				preparedStatement.setString(6, nhanvien.getDiachi());
 				preparedStatement.setString(7, nhanvien.getVitri());
-				preparedStatement.setFloat(8, nhanvien.getMucluong());
+				preparedStatement.setString(8, nhanvien.getMucluong());
 				preparedStatement.setString(9, nhanvien.getNgaynhanviec());
-				preparedStatement.setString(10, nhanvien.getHinhanh());
 				preparedStatement.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -77,6 +75,26 @@ public class NhanVienService extends SQLServerConnection{
 				PreparedStatement preparedStatement = conn.prepareStatement(sqlxoaNhanVien);
 				preparedStatement.setString(1, nhanvien.getCmnd());
 				preparedStatement.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		public void chinhsuaThongTinNhanVien(NhanVien nhanvien) {
+			try {
+				String sqlxoaNhanVien = "update NhanVien set tennhanvien = ?,sodienthoai = ?,ngaysinh = ?,cmnd = ?,diachi = ?,vitri = ?,mucluong = ?,ngaynhanviec = ? where maNhanVien = ?";
+				PreparedStatement preparedStatement = conn.prepareStatement(sqlxoaNhanVien);
+				
+				preparedStatement.setString(1, nhanvien.getTenNhanVien());
+				preparedStatement.setString(2, nhanvien.getSodienthoai());
+				preparedStatement.setString(3,nhanvien.getNgaysinh());
+				preparedStatement.setString(4, nhanvien.getCmnd());
+				preparedStatement.setString(5, nhanvien.getDiachi());
+				preparedStatement.setString(6, nhanvien.getVitri());
+				preparedStatement.setString(7, nhanvien.getMucluong());
+				preparedStatement.setString(8, nhanvien.getNgaynhanviec());
+				preparedStatement.setString(9, nhanvien.getMaNhanVien());
+				preparedStatement.execute();
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
