@@ -126,7 +126,7 @@ public class ChinhSuaDonHangUI extends JPanel{
 						svChiTietDonHang.capnhatChiTietDonHang(chitietDonHang);
 						
 					}
-					JOptionPane.showMessageDialog(null, "Tạo đơn hàng thành công!");
+					JOptionPane.showMessageDialog(null, "Cập nhật đơn hàng thành công!");
 					ChinhSuaDonHangUI.this.removeAll();
 					ChinhSuaDonHangUI.this.add(new QL_BanHangUI(username));
 					ChinhSuaDonHangUI.this.updateUI();

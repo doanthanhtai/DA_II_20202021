@@ -140,6 +140,22 @@ public class SanPhamService extends SQLServerConnection{
 		}
 		return 0;
 	}
+	//Tổng bán
+	public long tongban(SanPham sanpham) {
+		long tongban = 0;
+		try {
+			String sql = "select SUM(soluong) from ChiTietDonHang where maSanPham = ?;";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1, sanpham.getMaSanPham());
+			ResultSet result = preStatement.executeQuery();
+			while(result.next()) {
+				tongban = result.getLong(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tongban;
+	}
 	//Tình trạng tồn kho của sản phẩm
 	@SuppressWarnings("rawtypes")
 	public ArrayList<Vector> TonKho(String maSP){

@@ -44,11 +44,14 @@ public class QL_NhanVienUI extends JPanel{
 	
     
 	
-	public QL_NhanVienUI() {
+	public QL_NhanVienUI(String username) {
 		this.setLayout(new BorderLayout());
-		addControls();
-		addEvents();
-		
+		if(username.trim().equals("admin")) {
+			addControls();
+			addEvents();
+		}else {
+			
+		}
 	}
 
 	private void addControls()
@@ -318,6 +321,10 @@ public class QL_NhanVienUI extends JPanel{
 					JOptionPane.showMessageDialog(null, "Chưa chọn nhân viên để chỉnh sửa!");
 				}else if(JOptionPane.showConfirmDialog(null,"Bạn có chắc muốn cập nhật thông tin Nhân viên này!","Xác nhận",JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					
+					String cmnd  = tblDanhSachNhanVien.getValueAt(tblDanhSachNhanVien.getSelectedRow(), 0).toString().trim();
+					nhanvien.setCmnd(cmnd);
+					svNhanVien.xoaNhanVien(nhanvien);
+					
 					nhanvien.setTenNhanVien(txtHoTen.getText());
 					nhanvien.setCmnd(txtCMND.getText().toString().trim());
 					nhanvien.setNgaysinh(txtNamSinh.getText());
@@ -327,7 +334,7 @@ public class QL_NhanVienUI extends JPanel{
 					nhanvien.setVitri(txtViTri.getText());
 					nhanvien.setDiachi(txtDiaChi.getText());
 					
-					svNhanVien.chinhsuaThongTinNhanVien(nhanvien);
+					svNhanVien.themNhanVien(nhanvien);
 					JOptionPane.showMessageDialog(null, "Chỉnh sửa thành công!");
 					hienDanhSachNhanVien();
 					

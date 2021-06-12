@@ -94,14 +94,15 @@ public class InDonHangUI extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Chức năng chưa hoàn thiện!");
+				dispose();
+
 			}
 		});
 		btnIn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				dispose();
+				JOptionPane.showMessageDialog(null, "Chức năng chưa hoàn thiện!");
 			}
 		});
 	}
@@ -131,7 +132,7 @@ public class InDonHangUI extends JFrame{
 				pnTenKhachHang.setLayout(new FlowLayout());
 				pnTop.add(pnTenKhachHang);
 				JLabel lblTenKhachHang = new JLabel("Tên khách hàng");
-				txtTenKhachHang = new JTextField(8);
+				txtTenKhachHang = new JTextField(15);
 				txtTenKhachHang.setText(khachhang.getTenKhachHang());
 				pnTenKhachHang.add(lblTenKhachHang);
 				pnTenKhachHang.add(txtTenKhachHang);

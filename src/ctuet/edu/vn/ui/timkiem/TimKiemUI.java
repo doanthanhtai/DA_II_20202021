@@ -46,7 +46,7 @@ public class TimKiemUI extends JPanel {
 		
 		//Tùy chỉnh đối tượng 
 		cboTuyChon.addItem("Tìm kiếm sản phẩm theo mã");
-		cboTuyChon.addItem("Tìm kiếm khách hàng");
+		cboTuyChon.addItem("Tìm kiếm khách hàng theo SDT");
 		txtTimKiem.setPreferredSize(new Dimension(350,30));
 	}
 	

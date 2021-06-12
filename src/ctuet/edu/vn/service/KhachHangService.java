@@ -10,6 +10,7 @@ import ctuet.edu.vn.model.KhachHang;
 
 public class KhachHangService extends SQLServerConnection {
 	
+
 	//Cập nhật thông tin khách hàng
 	public void capnhatKhachHang(KhachHang khachhang) {
 		try {
@@ -23,7 +24,7 @@ public class KhachHangService extends SQLServerConnection {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Tìm thông tin khách hàng bằng số điện thoại
 	public KhachHang TimKhachHang(String sodienthoai) {
 		KhachHang kh = new KhachHang();

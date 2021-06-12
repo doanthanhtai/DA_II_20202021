@@ -11,11 +11,12 @@ public class DonHangService extends SQLServerConnection{
 
 	String sql;
 	PreparedStatement preparedStatement;
-
+	
+	
 	//Lấy đơn hàng theo mã
 	public DonHang layDonHangTheoMa(DonHang donhang) {
 		try {
-			
+
 			sql = "SELECT * from DonHang where maDonHang = ?;";
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, donhang.getMaDonHang());
@@ -58,6 +59,42 @@ public class DonHangService extends SQLServerConnection{
 			e.printStackTrace();
 		}
 	}
+	
+
+
+
+	//Tổng giá trị đơn hàng
+	public int tonggiatriDonHang(String maDonHang) {
+		int tonggiatri = 0;
+		try {
+			sql = "select SUM(giatri) from ChiTietDonHang where maDonHang = ?;";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1,maDonHang);
+			ResultSet resultTongGiaTri = preStatement.executeQuery();
+			resultTongGiaTri.next();
+			tonggiatri = resultTongGiaTri.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tonggiatri;
+
+	}
+
+	//Số lượng sản phẩm trong đơn hàng
+	public int soluongSanPham(String maDonHang) {
+		int soluong = 1;
+		try {
+			String sql = "select SUM(soluong) from ChiTietDonHang where maDonHang = ?;";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1,maDonHang);
+			ResultSet resultSoSanPham = preStatement.executeQuery();
+			resultSoSanPham.next();
+			soluong = resultSoSanPham.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return soluong;
+	}
 	//Thêm đơn hàng mới vào cơ sỡ dữ liệu
 	public void themDonHang(DonHang donhang) {
 		try {
@@ -73,7 +110,7 @@ public class DonHangService extends SQLServerConnection{
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Đếm số đơn hàng hiện có hỗ trợ việc tạo mã đơn hàng mới tự động tăng
 	public int demSoDonHang() {
 		int sodonhang = 0;
@@ -88,7 +125,37 @@ public class DonHangService extends SQLServerConnection{
 		}
 		return sodonhang;
 	}
-	
+	//Thông kê đơn hàng theo thời gian
+	@SuppressWarnings("rawtypes")
+	public ArrayList<Vector> thongkeDonHang(String ngaybatdau,String ngayketthuc){
+		ArrayList<Vector> arrDanhSachDonHang = new ArrayList<Vector>();
+		try {
+			String sql = "select * from DonHang where ngaytao >= ? and ngaytao <= ?";
+			PreparedStatement preStatement = conn.prepareStatement(sql);
+			preStatement.setString(1, ngaybatdau);
+			preStatement.setString(2, ngayketthuc);
+			ResultSet result = preStatement.executeQuery();
+			while(result.next()) {
+				Vector<Object> vecDonHang = new Vector<Object>();
+				KhachHangService svKhachHang = new KhachHangService();
+				//Lấy mã đơn hàng
+				vecDonHang.add(result.getString(1));
+				//Lấy tên khách hàng
+				vecDonHang.add(svKhachHang.LayKhachHangTheoMa(result.getString(3)).getTenKhachHang());
+				//Lấy ngày tạo
+				vecDonHang.add(result.getString(4));
+				//Lấy tổng giá trị
+				vecDonHang.add(tonggiatriDonHang(result.getString(1)));
+				
+				arrDanhSachDonHang.add(vecDonHang);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return arrDanhSachDonHang;
+	}
+
 	//Lấy toàn bô đơn hàng để hiển thị lên bảng trong quản lý bán hàng
 	@SuppressWarnings("rawtypes")
 	public ArrayList<Vector> LayToanBoDonHang() {
@@ -99,31 +166,21 @@ public class DonHangService extends SQLServerConnection{
 			ResultSet resultDanhSachDonHang = preStatement.executeQuery();
 			while(resultDanhSachDonHang.next()) {
 				Vector<Object> vecDonHang = new Vector<Object>();
-				KhachHangService kh = new KhachHangService();
+				KhachHangService svKhachHang = new KhachHangService();
 				//Lấy mã đơn hàng
 				vecDonHang.add(resultDanhSachDonHang.getString(1));
 				//Lấy tên khách hàng
-				vecDonHang.add(kh.LayKhachHangTheoMa(resultDanhSachDonHang.getString(3)).getTenKhachHang());
+				vecDonHang.add(svKhachHang.LayKhachHangTheoMa(resultDanhSachDonHang.getString(3)).getTenKhachHang());
 				//Lấy SDT khách hàng
-				vecDonHang.add(kh.LayKhachHangTheoMa(resultDanhSachDonHang.getString(3)).getSodienthoai());
+				vecDonHang.add(svKhachHang.LayKhachHangTheoMa(resultDanhSachDonHang.getString(3)).getSodienthoai());
 				//Lấy mã nhân viên
 				vecDonHang.add(resultDanhSachDonHang.getString(2));
 				//Lấy ngày tạo
 				vecDonHang.add(resultDanhSachDonHang.getString(4));
 				//Lấy số lượng sản phẩm
-				String sql = "select SUM(soluong) from ChiTietDonHang where maDonHang = ?;";
-				preStatement = conn.prepareStatement(sql);
-				preStatement.setString(1,resultDanhSachDonHang.getString(1));
-				ResultSet resultSoSanPham = preStatement.executeQuery();
-				resultSoSanPham.next();
-				vecDonHang.add(resultSoSanPham.getInt(1));
+				vecDonHang.add(soluongSanPham(resultDanhSachDonHang.getString(1)));
 				//Lấy tổng giá trị
-				sql = "select SUM(giatri) from ChiTietDonHang where maDonHang = ?;";
-				preStatement = conn.prepareStatement(sql);
-				preStatement.setString(1,resultDanhSachDonHang.getString(1));
-				ResultSet resultTongGiaTri = preStatement.executeQuery();
-				resultTongGiaTri.next();
-				vecDonHang.add(resultTongGiaTri.getInt(1));
+				vecDonHang.add(tonggiatriDonHang(resultDanhSachDonHang.getString(1)));
 				//Lấy trạng thái
 				if(resultDanhSachDonHang.getInt(5) == 2) {
 					vecDonHang.add("Đợi thanh toán");

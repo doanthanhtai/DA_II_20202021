@@ -24,8 +24,8 @@ public class QL_MenuUI extends JFrame{
 	 */
 	private static final long serialVersionUID = 1L;
 	public String username;
-	JTabbedPane tabChucNang;
-	//JButton btnRefresh;
+	JTabbedPane tabChucNang;	
+	
 	public QL_MenuUI(String title,String username){
 		super(title);
 		this.username = username;
@@ -45,9 +45,9 @@ public class QL_MenuUI extends JFrame{
 		QL_SanPhamUI pnSanPham = new QL_SanPhamUI(username);
 		QL_KhoUI pnKho = new QL_KhoUI(username);
 		QL_TaiKhoanUI pnTaiKhoan = new QL_TaiKhoanUI(username);
-		QL_NhanVienUI pnNhanVien = new QL_NhanVienUI();
-		QL_ThongKeUI pnThongKe = new QL_ThongKeUI();
-		QL_KhachHangUI pnKhachHang = new QL_KhachHangUI();
+		QL_NhanVienUI pnNhanVien = new QL_NhanVienUI(username);
+		QL_ThongKeUI pnThongKe = new QL_ThongKeUI(username);
+		QL_KhachHangUI pnKhachHang = new QL_KhachHangUI(username);
 		tabChucNang = new JTabbedPane();
 
 		//Tùy chỉnh đối tượng
@@ -66,7 +66,7 @@ public class QL_MenuUI extends JFrame{
 		tabChucNang.addTab("Khách Hàng",new ImageIcon("image/customer_64px.png"), pnKhachHang);
 
 
-		pnContent.add(tabChucNang);
+		pnContent.add(tabChucNang,BorderLayout.CENTER);
 		pnMain.add(pnContent,BorderLayout.CENTER);
 		pnMain.add(pnTimKiem,BorderLayout.NORTH);
 		con.add(pnMain);
